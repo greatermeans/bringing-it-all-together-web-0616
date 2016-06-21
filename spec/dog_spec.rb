@@ -58,6 +58,7 @@ describe "Dog" do
       dog = teddy.save
 
       expect(DB[:conn].execute("SELECT * FROM dogs WHERE id = 1")).to eq([[1, "Teddy", "cockapoo"]])
+
       expect(dog.id).to eq(1)
     end
   end
@@ -88,6 +89,7 @@ describe "Dog" do
   describe '.find_or_create_by' do
     it 'creates an instance of a dog if it does not already exist' do
       dog1 = Dog.create(name: 'teddy', breed: 'cockapoo')
+
       dog2 = Dog.find_or_create_by(name: 'teddy', breed: 'cockapoo')
 
       expect(dog1.id).to eq(dog2.id)
@@ -125,6 +127,7 @@ describe "Dog" do
   describe '#find_by_name' do
     it 'returns an instance of dog that matches the name from the DB' do
       teddy.save
+
       teddy_from_db = Dog.find_by_name("Teddy")
 
       expect(teddy_from_db.name).to eq("Teddy")
@@ -137,6 +140,7 @@ describe "Dog" do
     it 'updates the record associated with a given instance' do
       teddy.save
       teddy.name = "Teddy Jr."
+
       teddy.update
       teddy_jr = Dog.find_by_name("Teddy Jr.")
       expect(teddy_jr.id).to eq(teddy.id)
